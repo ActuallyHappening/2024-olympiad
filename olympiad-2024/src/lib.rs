@@ -1,5 +1,31 @@
 use std::collections::HashSet;
 
+use tracing::info;
+
+pub fn question_5() {
+	let height = 0..(2023 / 6);
+	for h in height {
+		let hf = h * 6;
+		let width = (1 + hf)..=(6 + hf);
+
+		let mut str = String::new();
+		for n in width {
+			let mut available_pairs = 3;
+			let nstr = {
+				if n % 7 != 0 {
+					format!(" {:4},", n)
+				} else {
+					// available_pairs -= 1;
+					"     ,".into()
+				}
+			};
+			str.push_str(&nstr);
+		}
+		info!(%str, %h, "Combinations = ");
+		// info!("Total combinations = 336 * 6 = {}", 336 * 6);
+	}
+}
+
 pub fn question_4() {
 	// How many even integers between 6000 and 9000 have four different digits?
 	let numbers = 6000..=9000;

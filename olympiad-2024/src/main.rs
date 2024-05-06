@@ -4,4 +4,5 @@ fn main() {
 	tracing_subscriber::fmt::init();
 
 	// question_4();
+	question_5();
 }
