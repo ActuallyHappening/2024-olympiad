@@ -42,7 +42,8 @@ pub fn question_5() {
 
 	{
 		let sum = set.len();
-		info!(%sum, ?set);
+		info!(%sum);
+		trace!(?set);
 		confirm_set(set);
 	}
 }
