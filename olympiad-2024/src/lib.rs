@@ -1,18 +1,29 @@
 use std::collections::HashSet;
 
-use tracing::info;
+use tracing::{debug, info, trace};
 
 pub fn question_5() {
-	let height = 0..(2023 / 6);
+	const MAX: i32 = 2023;
+	// const MAX: i32 = 70;
+	info!("Starting question 5");
+	let height = 0..(MAX / 7);
+	// let mut sum = 0;
+	let mut set = HashSet::new();
+
 	for h in height {
-		let hf = h * 6;
-		let width = (1 + hf)..=(6 + hf);
+		let hf = h * 7;
+		let width = (1 + hf)..=(7 + hf);
 
 		let mut str = String::new();
 		for n in width {
-			let mut available_pairs = 3;
 			let nstr = {
 				if n % 7 != 0 {
+					if (n % 7 == 1) || (n % 7 == 2) || (n % 7 == 3) {
+						// sum += 1;
+						set.insert(n);
+						trace!(%n, "Adding num: n % 7 = {}", n % 7);
+					}
+
 					format!(" {:4},", n)
 				} else {
 					// available_pairs -= 1;
@@ -22,8 +33,36 @@ pub fn question_5() {
 			str.push_str(&nstr);
 		}
 		info!(%str, %h, "Combinations = ");
+		{
+			let sum = set.len();
+			debug!(%sum);
+		}
 		// info!("Total combinations = 336 * 6 = {}", 336 * 6);
 	}
+
+	{
+		let sum = set.len();
+		info!(%sum, ?set);
+		confirm_set(set);
+	}
+}
+
+/// S has the property that for any two distinct integers in S, neither their sum nor their product is divisible by 7.
+fn confirm_set(set: HashSet<i32>) {
+	let mut pairs = 0;
+	for a in set.iter() {
+		for b in set.iter() {
+			if a != b {
+				let sum = a + b;
+				let product = a * b;
+				if sum % 7 == 0 || product % 7 == 0 {
+					info!(%a, %b, %sum, %product, "Found pair");
+					pairs += 1;
+				}
+			}
+		}
+	}
+	info!(%pairs, "{}", {if pairs == 0 { "Set passed"} else { "Set failed" }});
 }
 
 pub fn question_4() {
