@@ -86,6 +86,7 @@ pub fn problem_4() {
 	use num_rational::Ratio;
 
 	type Num = i32;
+	#[allow(dead_code)]
 	type List = Vec<Ratio<Num>>;
 	type ListRef<'a> = &'a [Ratio<Num>];
 
