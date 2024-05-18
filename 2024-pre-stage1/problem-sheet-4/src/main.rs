@@ -88,6 +88,8 @@ pub fn problem_4() {
 	type Num = i32;
 	type List = Vec<Ratio<Num>>;
 	type ListRef<'a> = &'a [Ratio<Num>];
+
+
 	fn average_of(list: ListRef) -> Ratio<Num> {
 		let sum: Ratio<Num> = list.iter().sum();
 		sum / Ratio::new(list.len() as Num, 1)
@@ -109,6 +111,18 @@ pub fn problem_4() {
 			if twelfth_term == Ratio::from(28) {
 				info!(?twelfth_term, "Found correct guess: {:?}", guess);
 				trace!(?list, ?guess);
+
+				{
+					let mut debug_str = String::from("[");
+
+					for term in list {
+						debug_str.push_str(&format!("{}, ", term));
+					}
+
+					debug_str.push(']');
+
+					trace!(%debug_str);
+				}
 			}
 		}
 	}
