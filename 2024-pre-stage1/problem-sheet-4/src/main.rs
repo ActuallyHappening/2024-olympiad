@@ -85,6 +85,8 @@ pub fn problem_6() {
 pub fn problem_4() {
 	use num_rational::Ratio;
 
+	let first_num = 10;
+
 	type Num = i32;
 	#[allow(dead_code)]
 	type List = Vec<Ratio<Num>>;
@@ -102,7 +104,7 @@ pub fn problem_4() {
 		for guess_denom in 1..DENOM_MAX {
 			let guess = Ratio::new(guess_num, guess_denom);
 
-			let mut list = vec![Ratio::from(12), guess];
+			let mut list = vec![Ratio::from(first_num), guess];
 			for _len in 3..=12 {
 				let average = average_of(&list);
 				list.push(average);
